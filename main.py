@@ -1,12 +1,11 @@
 from discord.ext import commands
 import discord
 
-token = "MTEzMzM1NDEyMzI2MjE3NzQwMA.GwXhEa._nCBFbMyqm9SAp6ahPO7wyfFBRSTTOIC8fuhrs"
+token = ""
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='&',intents=intents)
-#has_any_role will come in handy
-#has_role
-roles = ['HonoredGuests']
+
+roles = ['HonoredGuests']#for only allowing bot to add/remove certains roles 
 def run():
     @bot.group()
     async def roleRequest(ctx):
@@ -18,7 +17,8 @@ def run():
         r = discord.utils.get(ctx.guild.roles, name=role)
         if r:
             if role in roles:
-                if r in mention.roles:
+                if r not in mention.roles:
+                    print("Inside add role")
                     await mention.add_roles(r)
                     await ctx.send("{} has been given role {} by {} :)".format(mention,r,ctx.author))
                 else:
@@ -34,6 +34,7 @@ def run():
         if r:
             if role in roles:
                 if r in mention.roles:
+
                     await mention.remove_roles(r)
                     await ctx.send("{} has removed role {} by {} :)".format(mention,r,ctx.author))
                 else:
