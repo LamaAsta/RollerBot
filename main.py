@@ -1,7 +1,7 @@
 from discord.ext import commands
 import discord
 
-token = "MTEzMzM1NDEyMzI2MjE3NzQwMA.GTTUnr.IQNZt_0VEmBTwwZxS6hHwKNpHP1SHzJMXirkCQ"
+token = ""
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='&',intents=intents)
 #has_any_role will come in handy
@@ -14,13 +14,13 @@ def run():
             await ctx.send("Please give a command")
     @roleRequest.command()
 
-    async def assign(ctx,mention:discord.Member,role:discord.Role):
-        print(role+' niga')
+    async def assign(ctx,mention:discord.Member,role:str):
+
         r = discord.utils.get(ctx.guild.roles, name=role)
         if r:
             if role in roles:
-                await mention.add_roles(role.id)
-                await ctx.send("{} has been given role {} by {} :)".format(mention,role,ctx.author))
+                await mention.add_roles(r)
+                await ctx.send("{} has been given role {} by {} :)".format(mention,r,ctx.author))
             else:
                 await ctx.send("The assignment of that role if beyond my capabilities :(")
         else:
